@@ -4,22 +4,9 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+	    <svg viewBox="0 0 40 40" class="circle">
+
+  <circle  transform="rotate(-90 31.831 31.831)" stroke="black" cx="43" cy="20" r="15.9155" strokeWith="2px" fill="none" strokeDasharray="93, 100"/> </svg>
   );
 }
 

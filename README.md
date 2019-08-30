@@ -1,68 +1,81 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Rebuild the pomodoro clock
 
-## Available Scripts
+I want to build a new and better pomodoro clock.
 
-In the project directory, you can run:
+## Logs
+30.08.2019: How to use an arc that represents the countdown.
 
-### `npm start`
+- I want to use this ["CSS&HTML based Recipe for an progress chart"](https://medium.com/@pppped/how-to-code-a-responsive-circular-percentage-chart-with-svg-and-css-3632f8cd7705)
+This is working with plain HTML but whenever I am implementing this code in React nothing is working. I cannot change the percentage and the fill attribute of the arc is errored. As you can see in the picture.
+![wrong behavior of the fill attribute](./pictures/wrongFillAttribute.png)
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- I discover an [interactive Circle Arc simulator](http://xahlee.info/js/svg_circle_arc.html). This helped me to see how to build a correct arc. I look like it is possible to build it with React. It is nevertheless complicated. I would like to find another solution.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- Another solution is to [use d3 and React for building the progress chart](http://www.adeveloperdiary.com/react-js/integrate-react-and-d3/). But again it looks like there are simpler solutions. **I NEED TO DIG INTO http://www.adeveloperdiary.com/**
 
-### `npm test`
+- The simplest solution is for me to inspire myself of (ReactCircle - Render a sgv circle + progress)[https://reactjsexample.com/renders-a-svg-circle-progress/] and to play with the (stroke-dasharray attribute)[https://developer.mozilla.org/fr/docs/Web/SVG/Attribute/stroke-dasharray] in react. I quickly tryed it on react and it seems to work. Here are the [properties of SVG circles](https://www.w3schools.com/graphics/svg_circle.asp).
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Questions
 
-### `npm run build`
+30.08.2019:
+	- **Why is the arc of the first code(in a html file) displayed correctly and why has the second code(in a js file with react) a wrong representation?**
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* First code:
+`<html>
+	
+	<body>
+		<svg viewBox="0 0 36 36">
+			<path style="display:block; margin:10px auto; max-width:80%; max-height:250px;" stroke-dasharray="80, 20" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-width="1" stroke="black"/>
+		</svg>
+		<script src="
+		<script src="index.js"></script>
+	</body>
+</html>`
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+* Second code:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`function App() {
+  return (
+	    <svg viewBox="0 0 36 36" class="circle">
+  		<path d="M 18 2.0845
+	  		A 15.9155 15.9155 0 0 1 0 31.831
+	  		A 15.9155 15.9155 0 0 1 0 -31.831" stroke="black"/>
+	  </svg>
+  );
+}
+export default App;`
 
-### `npm run eject`
+	- **What is a TSX file?**
+It is a typescript file, in which jsx is incorporated.
+	
+	- **What is the viewBox?**
+* In a svg tag, the attribute viewBox defines the position and dimension, in user space of an SVG viewport[(As mentioned here)](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox). This is for me still unclear... A better explanation comes from [lifewire](https://www.lifewire.com/svg-viewbox-attribute-3469829). They say that viewBox acts like it crops an image of a svg and scale it to the size of the SVG canva.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* ViewBox has four arguments: viewBox(min-x min-y width height):
+Min-x is the x coordonate from where the cropping will start.
+Min-y is the y coordonate from where the cropping will start.
+Width is the width length that the cropping need to take into account.
+Height is the height length that the cropping need to take into account.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Let build a simple SVG with a black circle(with a diameter of 500px on a red squared canva of 500px:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`<svg width="500px" height="500px" style="background-color: red;">
+	<circle cx="250" cy="250" r="250"/>
+</svg>`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+<svg width="500px" height="500px" style="background-color: red;">
+	<circle cx="250" cy="250" r="250"/>
+</svg>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+by adding the viewBox we obtain:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+`<svg viewBox="250 250 250 250" width="500px" height="500px" style="background-color:red;">
+ <circle cx="250" cy="250" r="250"/>
+</svg>`
 
-### Code Splitting
+<svg viewBox="250 250 250 250" width="500px" height="500px" style="background-color:red;">
+ <circle cx="250" cy="250" r="250"/>
+</svg>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
