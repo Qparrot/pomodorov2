@@ -15,6 +15,9 @@ This is working with plain HTML but whenever I am implementing this code in Reac
 
 - The simplest solution is for me to inspire myself of (ReactCircle - Render a sgv circle + progress)[https://reactjsexample.com/renders-a-svg-circle-progress/] and to play with the (stroke-dasharray attribute)[https://developer.mozilla.org/fr/docs/Web/SVG/Attribute/stroke-dasharray] in react. I quickly tryed it on react and it seems to work. Here are the [properties of SVG circles](https://www.w3schools.com/graphics/svg_circle.asp).
 
+31.08.2019:  the progress chart is moving with react
+- I used the accurateInterval and the state of react to decrement the circle of a shroke dash every 50 millisecond.
+
 ## Questions
 
 30.08.2019:
