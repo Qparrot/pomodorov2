@@ -15,15 +15,15 @@ class CircleTimer extends React.Component
 	render()
 	{
 		return(
-				<svg viewBox="0 0 40 40" className="circle">
-					<circle  
-						transform="rotate(-90 31.831 31.831)" 
-						stroke="black" 
-						cx="43" cy="20" r="15.9155" 
-						strokewith="2px" 
-						fill="none" 
-						strokeDasharray={this.props.percentage + ', 100'}/>
-				</svg>
+			<svg viewBox="0 0 40 40" className="circle">
+				<circle  
+					transform="rotate(-90 31.831 31.831)" 
+					stroke="black" 
+					cx="43" cy="20" r="15.9155" 
+					strokewith="2px" 
+					fill="none" 
+					strokeDasharray={this.props.percentage + ', 100'}/>
+			</svg>
 		);
 	}
 }
@@ -41,7 +41,8 @@ class App extends React.Component
 		super(props);
 		this.state = {
 			'percentage': 100,
-			'storedIntervalFunction': ''
+			'storedIntervalFunction': '',
+			'isRunning': false
 		}
 		this.trigger = this.trigger.bind(this);
 	}
@@ -51,14 +52,24 @@ class App extends React.Component
 	// 3.2-----------------------------------
 	trigger()
 	{
-		if(this.state.percentage > 0)
-		this.setState({storedIntervalFunction : accurateInterval(() => {
-			this.setState({percentage: this.state.percentage - 0.5});
-		}, 5)});
+		if(this.state.percentage > 0 && this.state.isRunning === false)
+		{
+			this.setState({storedIntervalFunction : accurateInterval(() => {
+				this.setState({percentage: this.state.percentage - 0.5});
+			}, 5)});
+			this.setState({isRunning: true});
+		}
+		else if(this.props.dataset.id === "reset")
+		{
+			this.setState({isRunning: false});
+			this.state.storedIntervalFunction.clear();
+			this.setState({percentage: 100});
+		}
 		else
 		{
 			this.state.storedIntervalFunction.clear();
 			this.setState({percentage: 100});
+			this.setState({isRunning: false});
 		}
 	}
 	// 3.2-----------------------------------
@@ -69,6 +80,7 @@ class App extends React.Component
 		return (
 			<div className="App">
 				<button onClick={this.trigger}>Run</button>
+				<button onClick={this.trigger} dataset-id="reset">Reset</button>
 				<CircleTimer percentage={this.state.percentage}/>
 			</div>
 		);

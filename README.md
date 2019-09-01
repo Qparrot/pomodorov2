@@ -18,6 +18,9 @@ This is working with plain HTML but whenever I am implementing this code in Reac
 31.08.2019:  the progress chart is moving with react
 - I used the accurateInterval and the state of react to decrement the circle of a shroke dash every 50 millisecond.
 
+01.08.2019: Add the button reset
+- I tryed to add the button reset that should restart the countdown.
+
 ## Questions
 
 30.08.2019:
