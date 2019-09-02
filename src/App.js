@@ -52,18 +52,18 @@ class App extends React.Component
 	// 3.2-----------------------------------
 	trigger()
 	{
-		if(this.state.percentage > 0 && this.state.isRunning === false)
+		if(this.props.data.id === "reset")
+		{
+			this.setState({isRunning: false});
+			this.state.storedIntervalFunction.clear();
+			this.setState({percentage: 100});
+		}
+		else if(this.state.percentage > 0 && this.state.isRunning === false)
 		{
 			this.setState({storedIntervalFunction : accurateInterval(() => {
 				this.setState({percentage: this.state.percentage - 0.5});
 			}, 5)});
 			this.setState({isRunning: true});
-		}
-		else if(this.props.dataset.id === "reset")
-		{
-			this.setState({isRunning: false});
-			this.state.storedIntervalFunction.clear();
-			this.setState({percentage: 100});
 		}
 		else
 		{
@@ -80,7 +80,7 @@ class App extends React.Component
 		return (
 			<div className="App">
 				<button onClick={this.trigger}>Run</button>
-				<button onClick={this.trigger} dataset-id="reset">Reset</button>
+				<button onClick={this.trigger} data-id="reset">Reset</button>
 				<CircleTimer percentage={this.state.percentage}/>
 			</div>
 		);
