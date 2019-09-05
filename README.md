@@ -3,7 +3,7 @@
 I want to build a new and better pomodoro clock.
 
 ## Logs
-30.08.2019: How to use an arc that represents the countdown.
+_30.08.2019_: How to use an arc that represents the countdown.
 
 - I want to use this ["CSS&HTML based Recipe for an progress chart"](https://medium.com/@pppped/how-to-code-a-responsive-circular-percentage-chart-with-svg-and-css-3632f8cd7705)
 This is working with plain HTML but whenever I am implementing this code in React nothing is working. I cannot change the percentage and the fill attribute of the arc is errored. As you can see in the picture.
@@ -15,11 +15,15 @@ This is working with plain HTML but whenever I am implementing this code in Reac
 
 - The simplest solution is for me to inspire myself of (ReactCircle - Render a sgv circle + progress)[https://reactjsexample.com/renders-a-svg-circle-progress/] and to play with the (stroke-dasharray attribute)[https://developer.mozilla.org/fr/docs/Web/SVG/Attribute/stroke-dasharray] in react. I quickly tryed it on react and it seems to work. Here are the [properties of SVG circles](https://www.w3schools.com/graphics/svg_circle.asp).
 
-31.08.2019:  the progress chart is moving with react
+_31.08.2019_:  the progress chart is moving with react
 - I used the accurateInterval and the state of react to decrement the circle of a shroke dash every 50 millisecond.
 
-01.08.2019: Add the button reset
-- I tryed to add the button reset that should restart the countdown.
+_01.08.2019_: Add the button reset
+- Add the button reset that should restart the countdown.
+
+_05.08.2019_: timer stops at 0 && right behavior for the reset button
+- The timer stopped when it reaches 0. then the circle and the state's values reboot.
+- The botton "reset" now stop the timer and reboot all the state's values.
 
 ## Questions
 

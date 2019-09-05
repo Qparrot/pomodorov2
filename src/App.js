@@ -48,43 +48,56 @@ class App extends React.Component
 	}
 	// 3.1-----------------------------------
 
-	// 3.2. Trigger runs the timer. It starts when the user click on run.
+	// 3.2. Trigger runs the timer. It starts when the user clicks on run.
 	// 3.2-----------------------------------
-	trigger()
+	trigger(e)
 	{
-		if(this.props.data.id === "reset")
+		// 3.2.1. We use 'e.target' to analyse the value attribute of the clicked button
+		// 3.2.1 ------------------------
+		if (e.target.value === "reset")
 		{
-			this.setState({isRunning: false});
-			this.state.storedIntervalFunction.clear();
-			this.setState({percentage: 100});
+			if(this.state.isRunning === true)
+			{
+				this.state.storedIntervalFunction.clear();
+				this.setState({isRunning: false});
+				this.setState({percentage: 100});
+			}
 		}
-		else if(this.state.percentage > 0 && this.state.isRunning === false)
+		// 3.2.1 ------------------------
+
+
+		else if (this.state.isRunning === false)
 		{
 			this.setState({storedIntervalFunction : accurateInterval(() => {
-				this.setState({percentage: this.state.percentage - 0.5});
-			}, 5)});
+				if(this.state.percentage > 0)
+					this.setState({percentage: this.state.percentage - 1});
+				else
+				{
+					this.state.storedIntervalFunction.clear();
+					this.setState({percentage: 100});
+					this.setState({isRunning: false});
+				}
+			}, 100)});
 			this.setState({isRunning: true});
 		}
 		else
 		{
-			this.state.storedIntervalFunction.clear();
-			this.setState({percentage: 100});
-			this.setState({isRunning: false});
+			this.setState({isRunning: true});
 		}
 	}
 	// 3.2-----------------------------------
 
 
-	render()
-	{
-		return (
-			<div className="App">
-				<button onClick={this.trigger}>Run</button>
-				<button onClick={this.trigger} data-id="reset">Reset</button>
-				<CircleTimer percentage={this.state.percentage}/>
-			</div>
-		);
-	}
+render()
+{
+	return (
+		<div className="App">
+			<button onClick={this.trigger}>Run</button>
+			<button onClick={this.trigger} value="reset">Reset</button>
+			<CircleTimer percentage={this.state.percentage}/>
+		</div>
+	);
+}
 }
 // 3---------------------------------------------
 export default App;
