@@ -1,6 +1,9 @@
 # Rebuild the pomodoro clock
 
-I want to build a new and better pomodoro clock.
+I want to build a new and better pomodoro clock. I will use the following codepen:
+- https://codepen.io/Alca/pen/ExYPdjG
+- https://codepen.io/kylewetton/pen/zYOzXxp
+- https://emojiterra.com/pause-button/
 
 ## Logs
 _30.08.2019_: How to use an arc that represents the countdown.
@@ -24,6 +27,11 @@ _01.08.2019_: Add the button reset
 _05.08.2019_: timer stops at 0 && right behavior for the reset button
 - The timer stopped when it reaches 0. then the circle and the state's values reboot.
 - The botton "reset" now stop the timer and reboot all the state's values.
+
+_06.08.2019_: Show timers in the SVG and percentages are linked to the timer
+- The session and break timers are displayed
+- The percentage value  are decremented with the right value based on the total time.
+
 
 ## Questions
 

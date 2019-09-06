@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 
-
+var sessionValueTest = 15;
+var breakValueTest = 5;
 // 1. Declaration of accurateInterval that will be help the software to decrement a timestamp accuratly.
 // 1---------------------------------------------
 var accurateInterval = require('accurate-interval');
@@ -23,6 +24,8 @@ class CircleTimer extends React.Component
 					strokewith="2px" 
 					fill="none" 
 					strokeDasharray={this.props.percentage + ', 100'}/>
+				<text x="20" y="20" font-familly="Verdana" font-size="4" fill="blue">{this.props.breakTime}</text>
+				<text x="22" y="15" font-familly="Verdana" font-size="2" fill="blue">{this.props.sessionTime}</text>
 			</svg>
 		);
 	}
@@ -42,7 +45,10 @@ class App extends React.Component
 		this.state = {
 			'percentage': 100,
 			'storedIntervalFunction': '',
-			'isRunning': false
+			'isRunning': false,
+			'sessionTime': sessionValueTest,
+			'timer': breakValueTest,
+			'breakTime': breakValueTest
 		}
 		this.trigger = this.trigger.bind(this);
 	}
@@ -70,14 +76,18 @@ class App extends React.Component
 		{
 			this.setState({storedIntervalFunction : accurateInterval(() => {
 				if(this.state.percentage > 0)
-					this.setState({percentage: this.state.percentage - 1});
+				{
+					this.setState({percentage: this.state.percentage - 1/this.state.timer * 100});
+					this.setState({breakTime: this.state.breakTime - 1});
+				}
 				else
 				{
 					this.state.storedIntervalFunction.clear();
 					this.setState({percentage: 100});
 					this.setState({isRunning: false});
+					this.setState({breakTime: breakValueTest});
 				}
-			}, 100)});
+			}, 1000)});
 			this.setState({isRunning: true});
 		}
 		else
@@ -94,7 +104,7 @@ render()
 		<div className="App">
 			<button onClick={this.trigger}>Run</button>
 			<button onClick={this.trigger} value="reset">Reset</button>
-			<CircleTimer percentage={this.state.percentage}/>
+			<CircleTimer percentage={this.state.percentage} breakTime={this.state.breakTime} sessionTime={this.state.sessionTime}/>
 		</div>
 	);
 }
